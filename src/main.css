@@ -1,0 +1,128 @@
+/* See the documentation for how to load in regular weight versions */
+@font-face {
+	font-family: 'Benton';
+	src: url('https://apps.bostonglobe.com/common/font/benton-bold.woff2') format('woff2'), url('https://apps.bostonglobe.com/common/font/benton-bold.woff') format('woff');
+    font-weight: 600;
+}
+
+@font-face {
+	font-family: 'Miller';
+	src: url('https://apps.bostonglobe.com/common/font/miller-bold.woff2') format('woff2'), url('https://apps.bostonglobe.com/common/font/miller-bold.woff') format('woff');
+    font-weight: 600;
+}
+
+/* =========================== */
+/* Globe font stack examples
+/* =========================== */
+
+/* Serif (Miller) */
+/* font-family: 'Miller', Georgia, Times New Roman, Times, serif; */
+/* font-weight: 600; */
+
+/* Sans-serif (Benton) */
+/* font-family: 'Benton', Helvetica, Arial, sans-serif; */
+/* font-weight: 600; */
+
+/* Serif */
+/* font-family: 'Georgia', Times New Roman, Times, serif; */
+
+/* Sans-serif */
+/* font-family: 'Helvetica', Arial, sans-serif; */
+
+/* =========================== */
+/* Graphic styles
+/* =========================== */
+
+#plot{
+	min-height: 500px;
+	min-width: 200px;
+	width: 90%;
+}
+/*#plot .axis-y{*/
+	/*stroke:black;*/
+	/*stroke-width:.5px;*/
+/*}*/
+.row{
+	float: left;
+}
+#slider{
+	width: 100px;
+	min-height: 500px;
+}
+.time-series .axis-y .tick line{
+	stroke: #e4e4e4;
+	stroke-width:.5px;
+}
+.time-series .axis-x .tick line{
+	stroke:#AFAFAF;
+	stroke-width:2px;
+	stroke-dasharray:5;
+}
+.time-series .axis-x path{
+	stroke:rgba(0,0,0,0);
+}
+.time-series .axis-x text{
+	font-size: 1.5em;
+}
+
+/*tooltip*/
+.custom-tooltip{
+	position:absolute;
+	width:200px;
+	padding:10px 10px;
+	color:rgb(80,80,80);
+	font-size:.8em;
+	left:0;
+	box-shadow:0 5px 10px rgba(0,0,0,.1);
+	opacity:0;
+	background:white;
+	z-index: 1000;
+}
+.custom-tooltip .heading{ font-weight:bold; font-size:0.8em;}
+.custom-tooltip .value{ font-size:0.8em; }
+
+.hour, .minute{
+	font-size: 0.8em;
+}
+#map{
+	min-height: 600px;
+	width: 100%;
+}
+
+button.stepperLi, #nextStep{
+	float: left;
+	padding: 0.5em 0.5em;
+	font-size: 1em;
+	border: 1px solid #efefef;
+	text-transform: uppercase;
+	font-weight: 500;
+	background: none;
+	border-radius: 5px;
+	color: #9c9c9c;
+	cursor:pointer;
+	text-decoration: none;
+}
+.stepperLi.active{
+	color: #000;
+	background: #e9e9e9;
+	/*border-color: #AAA;*/
+	box-shadow: inset 0px 0px 4px rgba(0,0,0,0.2);
+}
+.leaflet-popup-content b{
+	font-weight: bold;
+}
+#stepper{
+	margin: 1em;
+	float: right;
+}
+@media (max-width: 600px) {
+	#map{
+		min-height:400px;
+	}
+}
+.leaflet-popup-content p a span{
+	color: cadetblue;
+	font-size:1.2em;
+	font-weight: bold;
+	cursor: pointer;
+}
