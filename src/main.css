@@ -120,11 +120,10 @@ button.stepperLi, #nextStep{
 		min-height:400px;
 	}
 }
-.leaflet-popup-content p a span{
+.leaflet-popup-content p span{
 	color: cadetblue;
 	font-size:1.2em;
 	font-weight: bold;
-	cursor: pointer;
 }
 
 .leaflet-popup-content-wrapper{
