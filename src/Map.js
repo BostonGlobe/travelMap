@@ -27,33 +27,61 @@ function Map() {
         var zoom = 15;
         //ADD ICON
 
+        // var iconStyle= {
+        //     iconUrl: './assets/leaf-red.png',
+        //     shadowUrl: './assets/leaf-shadow.png',
+        //     iconSize:     [19, 47.5], // size of the icon
+        //     shadowSize:   [25, 32], // size of the shadow
+        //     iconAnchor:   [11, 47], // point of the icon which will correspond to marker's location
+        //     shadowAnchor: [2, 31],  // the same for the shadow
+        //     popupAnchor:  [-3, -38] // point from which the popup should open relative to the iconAnchor
+        // };
+        // var orangeZoom= {
+        //     iconUrl: './assets/leaf-red.png',
+        //     shadowUrl: './assets/leaf-shadow.png',
+        //     iconSize:     [38, 95],
+        //     shadowSize:   [50, 64],
+        //     iconAnchor:   [22, 94],
+        //     shadowAnchor: [4, 62],
+        //     popupAnchor:  [-3, -76]
+        // };
+
         var iconStyle= {
-            iconUrl: './assets/leaf-red.png',
-            shadowUrl: './assets/leaf-shadow.png',
-            iconSize:     [19, 47.5], // size of the icon
-            shadowSize:   [25, 32], // size of the shadow
-            iconAnchor:   [11, 47], // point of the icon which will correspond to marker's location
-            shadowAnchor: [2, 31],  // the same for the shadow
-            popupAnchor:  [-3, -38] // point from which the popup should open relative to the iconAnchor
+            iconUrl: './assets/apple6.png',
+            //shadowUrl: './assets/leaf-shadow.png',
+            iconSize:     [23, 23], // size of the icon
+            popupAnchor:  [-1.5, -17.5] // point from which the popup should open relative to the iconAnchor
         };
         var orangeZoom= {
-            iconUrl: './assets/leaf-red.png',
-            shadowUrl: './assets/leaf-shadow.png',
-            iconSize:     [38, 95],
-            shadowSize:   [50, 64],
-            iconAnchor:   [22, 94],
-            shadowAnchor: [4, 62],
-            popupAnchor:  [-3, -76]
+            iconUrl: './assets/apple6.png',
+            //shadowUrl: './assets/leaf-shadow.png',
+            iconSize:     [50, 50],
+            popupAnchor:  [-3, -35]
         };
 
         var iconSmall = L.icon(iconStyle),
             iconLarge = L.icon(orangeZoom);
 
         var markersLayer = L.layerGroup();
+        //_map.locate();
         var farmMarkers = Array.from(arr,function(d, i){
+            // var popUp = L.popup()
+            //     .setContent("<p><span> "+ d.LocationName+
+            //         " </span></p><p><b>Address:</b> "
+            //         +d.addresses+"<br/> <a target='_blank' href='http://"
+            //         +d.Website +"'>Website</a> | <a target='_blank' href='http://maps.google.com/maps?f=q&hl=en&q=from:Boston%2c+MA+to:"+encodeURIComponent(d.addresses)+"'> Direction </a><br/><b>TEL:</b> "
+            //         + d.Phone+"</br><b>Description:</b> "
+            //         +d.Description+" </p>");
+
+
             var popUp = L.popup()
                 .setContent("<p><span> "+ d.LocationName+
-                    " </span></p><p><b>Address:</b> "+d.addresses+"<br/><b>Website:</b> <a target='_blank' href='http://"+d.Website +"'>"+d.Website+"</a><br/><b>TEL:</b> "+ d.Phone+"</br><b>Description:</b> "+d.Description+" </p>");
+                    " </span></p><p><b>Address:</b> "
+                    +d.addresses+"<br/><b>TEL:</b> "
+                    + d.Phone+" <br/> <a target='_blank' href='http://"
+                    +d.Website +"'>Website</a> | <a target='_blank' href='http://maps.google.com/maps?f=q&hl=en&q=from:Boston%2c+MA+to:"+encodeURIComponent(d.addresses)+"'> Direction </a></p>");
+
+            //href="http://maps.google.com/maps?f=q&hl=en&q=from:Boston%2c+MA+to:12%20Lincoln%20Road,%20North%20Brookfield,%20MA%2001535"
 
             var marker = L.marker([+d.lat, +d.lon],
                 {icon: iconSmall, riseOnHover: true})
@@ -67,7 +95,7 @@ function Map() {
                 } else if (saveLatLng == e.latlng){
                         _map.flyTo(e.latlng, 8.5);
                 } else{
-                    iconStyle.iconSize = [38, 95];
+                    iconStyle.iconSize = [40, 40];
                     _map.panTo(e.latlng);
                 }
                 saveLatLng= e.latlng;
@@ -82,7 +110,12 @@ function Map() {
                 
             });
         });
-
+        function currentPositionToGoogleQuery(cp) {
+            if(cp){return encodeURIComponent (cp);}
+            else {
+                return "Boston%2c";
+            }
+        }
         markersLayer.addTo(_map);
         var overlay = {'Farms': markersLayer};
        L.control.layers(baseMaps, overlay).addTo(_map);
@@ -92,6 +125,42 @@ function Map() {
             _map.on('locationerror', onLocationError);
             _map.on('locationfound', onLocationFound);
         }).addTo(_map);
+
+        //______search input:It works but Enter button doesn't
+        /*
+        var geocoder = new google.maps.Geocoder();
+
+        function googleGeocoding(text, callResponse)
+        {
+            geocoder.geocode({address: text}, callResponse);
+        }
+
+        _map.addControl( new L.Control.Search({
+            sourceData: googleGeocoding,
+            formatData: formatJSON,
+            markerLocation: true,
+            autoType: false,
+            zoom: 13,
+            autoCollapse: true,
+            minLength: 2
+        }) );
+
+        function formatJSON(rawjson)
+        {
+            var json = {},
+                key, loc, disp = [];
+
+            for(var i in rawjson)
+            {
+                key = rawjson[i].formatted_address;
+
+                loc = L.latLng( rawjson[i].geometry.location.lat(), rawjson[i].geometry.location.lng() );
+
+                json[ key ]= loc;	//key,value format
+            }
+
+            return json;
+        } */
 
         function onLocationError(e) {
             alert(e.message);

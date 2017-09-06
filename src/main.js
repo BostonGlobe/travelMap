@@ -27,8 +27,8 @@
 
 
 
-        d3.json('./assets/geoCodedFarm.json', function (error, data) {
-            console.log(data);
+        d3.json('./assets/geoCodedFarm2.json', function (error, data) {
+            //console.log(data);
             var farmMap = Map().map(map);
             d3.select("#map").datum(data).call(farmMap);
         });
